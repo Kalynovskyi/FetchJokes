@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
-import Button from "./components/UI/Button";
+import Jokes from "./components/Jokes";
 
 function App() {
+
     return <div className="container mx-auto bg-slate-400 p-5 rounded-xl">
-        <Button>Fetch Data</Button>
+        <Jokes></Jokes>
     </div>;
 }
 
