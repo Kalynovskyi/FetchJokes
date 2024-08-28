@@ -5,13 +5,30 @@ interface ButtonProps {
     className?: string;
 }
 
+interface CardProps {
+    children: React.ReactNode;
+    className?: string;
+}
+
 interface JokeJSON {
-    category: string
-    error: boolean
-    flags: {nsfw: false, religious: false, political: false, racist: false, sexist: false}
-    id: number
-    joke: string
-    lang: string
-    safe: boolean
-    type: string
+    category?: string,
+    error?: boolean,
+    id?: number,
+    joke?: string | undefined,
+    setup?: string,
+    delivery?: string,
+    lang?: string,
+    safe?: boolean,
+    type?: string
+}
+
+interface jokesJSON {
+    key: number | undefined,
+    joke: JokeJSON
+}
+
+interface jokesArray {
+    error?: boolean,
+    amount?: number,
+    jokes?: Array<{}>
 }
