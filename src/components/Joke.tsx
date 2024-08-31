@@ -9,7 +9,6 @@ const Joke = (props: jokesJSON) => {
         isJokeTwoPart = true;
     }
 
-    console.log(jokeData);
     return (
         <li>
             <Card>

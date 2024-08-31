@@ -5,6 +5,11 @@ interface ButtonProps {
     className?: string;
 }
 
+interface InputProps {
+    type: string,
+    placeholder?: string
+}
+
 interface CardProps {
     children: React.ReactNode;
     className?: string;

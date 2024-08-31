@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "./UI/Button";
+import Input from "./UI/Input";
 import convertJokesObject from "../helperFunctions/convertJokesObject";
 import Joke from "./Joke";
 
@@ -9,11 +10,15 @@ const JokesList = () => {
     const API_URL = "https://v2.jokeapi.dev/joke/Any?amount=4";
 
     const fetchData = async () => {
-        const response = await fetch(API_URL);
-        const data: jokesArray = await response.json();
-
-        setJokes(data);
-        setIsJokesShown(true);
+        try {
+            const response = await fetch(API_URL);
+            const data: jokesArray = await response.json();
+    
+            setJokes(data);
+            setIsJokesShown(true);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const handleFetchData = () => {
@@ -24,6 +29,7 @@ const JokesList = () => {
 
     return (
         <>
+            <Input type='number' placeholder="Jokes amount"></Input>
             <Button onClick={handleFetchData}>Fetch Data</Button>
 
             <ul className="jokes-container mt-4 space-y-4">
