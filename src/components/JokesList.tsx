@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import Button from "./UI/Button";
-import Input from "./UI/Input";
+import { useState } from "react";
 import convertJokesObject from "../helperFunctions/convertJokesObject";
 import Joke from "./Joke";
+import JokeForm from "./JokeForm";
 
 const JokesList = () => {
     const [jokes, setJokes] = useState({});
@@ -29,9 +28,7 @@ const JokesList = () => {
 
     return (
         <>
-            <Input type='number' placeholder="Jokes amount"></Input>
-            <Button onClick={handleFetchData}>Fetch Data</Button>
-
+            <JokeForm onSubmitForm={handleFetchData}></JokeForm>
             <ul className="jokes-container mt-4 space-y-4">
                 {isJokesShown && newJokes.map((joke: JokeJSON) => (
                     

@@ -8,6 +8,14 @@ interface ButtonProps {
 interface InputProps {
     type: string,
     placeholder?: string
+    value?: number | string
+    id?: string
+    onChange?: React.ChangeEvent<HTMLInputElement>;
+}
+
+interface SelectProps {
+    children: React.ReactNode;
+    multiple?: boolean
 }
 
 interface CardProps {
@@ -36,4 +44,8 @@ interface jokesArray {
     error?: boolean,
     amount?: number,
     jokes?: Array<{}>
+}
+
+interface FormProps {
+    onSubmitForm: () => void;
 }
