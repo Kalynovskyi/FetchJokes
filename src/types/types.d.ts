@@ -1,21 +1,21 @@
 interface ButtonProps {
     children: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    type?: 'button' | 'submit' | 'reset';
+    type?: "button" | "submit" | "reset";
     className?: string;
 }
 
 interface InputProps {
-    type: string,
-    placeholder?: string
-    value?: number | string
-    id?: string
+    type: string;
+    placeholder?: string;
+    value?: number | string;
+    id?: string;
     onChange?: React.ChangeEvent<HTMLInputElement>;
 }
 
 interface SelectProps {
     children: React.ReactNode;
-    multiple?: boolean
+    multiple?: boolean;
 }
 
 interface CardProps {
@@ -24,28 +24,29 @@ interface CardProps {
 }
 
 interface JokeJSON {
-    category?: string,
-    error?: boolean,
-    id?: number,
-    joke?: string | undefined,
-    setup?: string,
-    delivery?: string,
-    lang?: string,
-    safe?: boolean,
-    type?: string
+    category?: string;
+    error?: boolean;
+    id?: number;
+    joke?: string | undefined;
+    setup?: string;
+    delivery?: string;
+    lang?: string;
+    safe?: boolean;
+    type?: string;
 }
 
 interface jokesJSON {
-    key: number | undefined,
-    joke: JokeJSON
+    key: number | undefined;
+    joke: JokeJSON;
 }
 
 interface jokesArray {
-    error?: boolean,
-    amount?: number,
-    jokes?: Array<{}>
+    error?: boolean;
+    amount?: number;
+    jokes?: Array<{}>;
 }
 
 interface FormProps {
     onSubmitForm: () => void;
+    getUrl: (string) => void;
 }

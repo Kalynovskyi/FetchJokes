@@ -2,22 +2,41 @@ import { useState } from "react";
 import Button from "./UI/Button";
 
 const JokeForm = (props: FormProps) => {
-    const [number, setNumber] = useState("1");
-    const [categories, setCategories] = useState(['']);
+    const [number, setNumber] = useState(1);
+    const [categories, setCategories] = useState([""]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        let urlLink = "";
+        let linkNumber = "";
+        let linkCategories = "";
 
-        console.log(number);
-        console.log(categories);
+        if (number > 1) {
+            linkNumber = "?amount=" + number;
+        }
 
+        if (categories.length > 1) {
+            categories.forEach((category, i) => {
+                if (category.length === 0) return;
+                if (i === 1) {
+                    linkCategories = category; //Exclude "," from string
+                } else {
+                    linkCategories = linkCategories + "," + category;
+                }
+            });
+        } else {
+            linkCategories = "Any";
+        }
+
+        urlLink = "/" + linkCategories + linkNumber;
+
+        props.getUrl(urlLink);
         props.onSubmitForm();
     };
 
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setNumber(e.target.value);
+        setNumber(+e.target.value);
     };
-
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked === false) {
@@ -25,7 +44,6 @@ const JokeForm = (props: FormProps) => {
                 categories.indexOf(e.target.value),
                 categories.indexOf(e.target.value)
             );
-
         } else {
             categories.push(e.target.value);
         }

@@ -6,34 +6,41 @@ import JokeForm from "./JokeForm";
 const JokesList = () => {
     const [jokes, setJokes] = useState({});
     const [isJokesShown, setIsJokesShown] = useState(false);
-    const API_URL = "https://v2.jokeapi.dev/joke/Any?amount=4";
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(API_URL);
-            const data: jokesArray = await response.json();
-    
-            setJokes(data);
-            setIsJokesShown(true);
-        } catch (error) {
-            console.log(error);
-        }
+    let apiUrl = "https://v2.jokeapi.dev/joke/";
+
+    const handleUrlRequest = (url: string) => {
+        apiUrl = apiUrl + url;
     };
 
     const handleFetchData = () => {
-        (async () => await fetchData())(); //The fuck that means
+        (async () => {
+            console.log(apiUrl + " full url");
+            try {
+                const response = await fetch(apiUrl);
+                const data: jokesArray = await response.json();
+
+                setJokes(data);
+                setIsJokesShown(true);
+            } catch (error) {
+                console.log(error);
+            }
+        })();
     };
 
     const newJokes = convertJokesObject(jokes);
 
     return (
         <>
-            <JokeForm onSubmitForm={handleFetchData}></JokeForm>
+            <JokeForm
+                onSubmitForm={handleFetchData}
+                getUrl={handleUrlRequest}
+            ></JokeForm>
             <ul className="jokes-container mt-4 space-y-4">
-                {isJokesShown && newJokes.map((joke: JokeJSON) => (
-                    
-                    <Joke key={joke.id} joke={joke}></Joke>
-                ))}
+                {isJokesShown &&
+                    newJokes.map((joke: JokeJSON) => (
+                        <Joke key={joke.id} joke={joke}></Joke>
+                    ))}
             </ul>
         </>
     );
