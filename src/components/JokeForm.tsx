@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./UI/Button";
 
 const JokeForm = (props: FormProps) => {
-    const [number, setNumber] = useState(1);
+    const [number, setNumber] = useState<number>();
     const [categories, setCategories] = useState([""]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -10,6 +10,8 @@ const JokeForm = (props: FormProps) => {
         let urlLink = "";
         let linkNumber = "";
         let linkCategories = "";
+
+        if (number === undefined) return;
 
         if (number > 1) {
             linkNumber = "?amount=" + number;
@@ -112,7 +114,9 @@ const JokeForm = (props: FormProps) => {
             </span>
             <input
                 type="number"
-                value={number}
+                min={0}
+                max={10}
+                value={number || ''}
                 placeholder="Jokes amount"
                 className=" p-4 rounded-md "
                 onChange={handleNumberChange}
