@@ -4,6 +4,7 @@ import Button from "./UI/Button";
 const JokeForm = (props: FormProps) => {
     const [number, setNumber] = useState<number>();
     const [categories, setCategories] = useState([""]);
+    const [numberValidation, setNumberValidation] = useState("invalid");
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -11,12 +12,16 @@ const JokeForm = (props: FormProps) => {
         let linkNumber = "";
         let linkCategories = "";
 
-        if (number === undefined) return;
-
-        if (number > 1) {
-            linkNumber = "?amount=" + number;
+        if (number === undefined || number === 0) {
+            setNumberValidation('invalid shadow-inner-bold');
+            return;
         }
 
+        if (number > 0 && number <= 10) {
+            linkNumber = "?amount=" + number;
+            setNumberValidation('');
+        }
+        
         if (categories.length > 1) {
             categories.forEach((category, i) => {
                 if (category.length === 0) return;
@@ -38,6 +43,7 @@ const JokeForm = (props: FormProps) => {
 
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNumber(+e.target.value);
+        setNumberValidation('');
     };
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +124,7 @@ const JokeForm = (props: FormProps) => {
                 max={10}
                 value={number || ''}
                 placeholder="Jokes amount"
-                className=" p-4 rounded-md "
+                className= {` p-4 rounded-md ${numberValidation}`}
                 onChange={handleNumberChange}
             />
             <Button type="submit">Fetch Data</Button>
