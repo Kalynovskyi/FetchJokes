@@ -2,6 +2,7 @@ import { useState } from "react";
 import convertJokesObject from "../helperFunctions/convertJokesObject";
 import Joke from "./Joke";
 import JokeForm from "./JokeForm";
+import JokesFilter from "./JokesFilter";
 
 const JokesList = () => {
     const [jokes, setJokes] = useState({});
@@ -36,6 +37,9 @@ const JokesList = () => {
                 onSubmitForm={handleFetchData}
                 getUrl={handleUrlRequest}
             ></JokeForm>
+
+            {isJokesShown && <JokesFilter jokes={newJokes}></JokesFilter>}
+
             <ul className="jokes-container mt-4 space-y-4">
                 {isJokesShown &&
                     newJokes.map((joke: JokeJSON) => (

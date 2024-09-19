@@ -46,6 +46,10 @@ interface jokesArray {
     jokes?: Array<{}>;
 }
 
+interface JokesFilter {
+    jokes?: {}[]
+}
+
 interface FormProps {
     onSubmitForm: () => void;
     getUrl: (string) => void;
