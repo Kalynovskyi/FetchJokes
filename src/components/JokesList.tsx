@@ -32,12 +32,19 @@ const JokesList = () => {
 
     useEffect(() => {
         setFilteredJokes(jokes);
-    }, [jokes])
+    }, [jokes]);
 
-    const handleCategoryFilter = (category: string) => {
-        
+    const handleCategoryFilter = (category: {
+        category: string;
+        isActive: string;
+    }) => {
+        if (category.isActive === "false") {
+            setJokes([...jokes]);
+            return;
+        }
+
         const categorizedJokes = jokes.filter((joke: Joke) => {
-            return joke.category === category;
+            return joke.category === category.category;
         });
 
         setFilteredJokes([...categorizedJokes]);
