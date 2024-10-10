@@ -3,7 +3,7 @@ const JokesFilter = (props: JokesFilter) => {
     const categories: Array<string | undefined> = [];
 
     for (let i = 0; i < props.jokes.length; i++) {
-        var joke: JokeJSON = props.jokes[i];
+        var joke: Joke = props.jokes[i];
 
         if (!categories.includes(joke.category)) {
             categories.push(joke.category);
@@ -14,14 +14,12 @@ const JokesFilter = (props: JokesFilter) => {
         const target = event.target as HTMLInputElement;
 
         const classes = target.classList;
-        classes.toggle('bg-slate-700');
-        classes.toggle('text-white');
-        classes.toggle('bg-white');
-        
-        props.getCategoryFilter(target.dataset.value);
-    }
+        classes.toggle("bg-slate-700");
+        classes.toggle("text-white");
+        classes.toggle("bg-white");
 
-    
+        props.getCategoryFilter(target.dataset.value);
+    };
 
     return (
         <ul className="flex space-x-4 mt-4">

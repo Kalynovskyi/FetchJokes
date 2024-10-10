@@ -23,7 +23,7 @@ interface CardProps {
     className?: string;
 }
 
-interface JokeJSON {
+interface Joke {
     category?: string;
     error?: boolean;
     id?: number;
@@ -35,12 +35,12 @@ interface JokeJSON {
     type?: string;
 }
 
-interface jokesJSON {
+interface JokeProps {
     key: number | undefined;
-    joke: JokeJSON;
+    joke: Joke;
 }
 
-interface jokesArray {
+interface JokesData {
     error?: boolean;
     amount?: number;
     jokes?: Array<{}>;

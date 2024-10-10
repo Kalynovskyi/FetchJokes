@@ -2,7 +2,7 @@
 // function convertJokesObject() converts them to one format
 
 
-const convertJokesObject = (jokes: jokesArray) => {
+const convertJokesObject = (jokes: JokesData) => {
 
     let convertedJokes = [];
 

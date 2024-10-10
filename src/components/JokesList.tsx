@@ -5,9 +5,8 @@ import JokeForm from "./JokeForm";
 import JokesFilter from "./JokesFilter";
 
 const JokesList = () => {
-    const [jokes, setJokes] = useState({});
+    const [jokes, setJokes] = useState(Array<{}>);
     const [isJokesShown, setIsJokesShown] = useState(false);
-    const [activeCategory, setActiveCategory] = useState('');
 
     let apiUrl = "https://v2.jokeapi.dev/joke/";
 
@@ -17,12 +16,12 @@ const JokesList = () => {
 
     const handleFetchData = () => {
         (async () => {
-
             try {
                 const response = await fetch(apiUrl);
-                const data: jokesArray = await response.json();
+                const data: JokesData = await response.json();
 
-                setJokes(data);
+                setJokes(convertJokesObject(data));
+
                 setIsJokesShown(true);
             } catch (error) {
                 console.log(error);
@@ -30,11 +29,14 @@ const JokesList = () => {
         })();
     };
 
-    const newJokes = convertJokesObject(jokes);
-
     const handleCategoryFilter = (category: string) => {
-        setActiveCategory(category);
-    }
+        
+        const filteredJokes = jokes.filter((joke: Joke) => {
+            return joke.category === category;
+        });
+
+        setJokes([...filteredJokes]);
+    };
 
     return (
         <>
@@ -43,11 +45,16 @@ const JokesList = () => {
                 getUrl={handleUrlRequest}
             ></JokeForm>
 
-            {isJokesShown && <JokesFilter jokes={newJokes} getCategoryFilter={handleCategoryFilter}></JokesFilter>}
+            {isJokesShown && (
+                <JokesFilter
+                    jokes={jokes}
+                    getCategoryFilter={handleCategoryFilter}
+                ></JokesFilter>
+            )}
 
             <ul className="jokes-container mt-4 space-y-4">
                 {isJokesShown &&
-                    newJokes.map((joke: JokeJSON) => (
+                    jokes.map((joke: Joke) => (
                         <Joke key={joke.id} joke={joke}></Joke>
                     ))}
             </ul>

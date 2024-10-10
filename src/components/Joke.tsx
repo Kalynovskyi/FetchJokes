@@ -1,7 +1,7 @@
 import Card from "./UI/Card";
 
-const Joke = (props: jokesJSON) => {
-    const jokeData: JokeJSON = props.joke;
+const Joke = (props: JokeProps) => {
+    const jokeData: Joke = props.joke;
 
     let isJokeTwoPart: boolean | undefined = false;
 
