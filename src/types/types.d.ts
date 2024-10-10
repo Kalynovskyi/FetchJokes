@@ -47,7 +47,8 @@ interface jokesArray {
 }
 
 interface JokesFilter {
-    jokes?: {}[]
+    jokes?: {}[];
+    getCategoryFilter: (string) => void;
 }
 
 interface FormProps {

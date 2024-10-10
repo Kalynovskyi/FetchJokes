@@ -7,6 +7,7 @@ import JokesFilter from "./JokesFilter";
 const JokesList = () => {
     const [jokes, setJokes] = useState({});
     const [isJokesShown, setIsJokesShown] = useState(false);
+    const [activeCategory, setActiveCategory] = useState('');
 
     let apiUrl = "https://v2.jokeapi.dev/joke/";
 
@@ -16,7 +17,7 @@ const JokesList = () => {
 
     const handleFetchData = () => {
         (async () => {
-            console.log(apiUrl + " full url");
+
             try {
                 const response = await fetch(apiUrl);
                 const data: jokesArray = await response.json();
@@ -31,6 +32,10 @@ const JokesList = () => {
 
     const newJokes = convertJokesObject(jokes);
 
+    const handleCategoryFilter = (category: string) => {
+        setActiveCategory(category);
+    }
+
     return (
         <>
             <JokeForm
@@ -38,7 +43,7 @@ const JokesList = () => {
                 getUrl={handleUrlRequest}
             ></JokeForm>
 
-            {isJokesShown && <JokesFilter jokes={newJokes}></JokesFilter>}
+            {isJokesShown && <JokesFilter jokes={newJokes} getCategoryFilter={handleCategoryFilter}></JokesFilter>}
 
             <ul className="jokes-container mt-4 space-y-4">
                 {isJokesShown &&
