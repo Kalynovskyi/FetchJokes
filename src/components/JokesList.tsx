@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import convertJokesObject from "../helperFunctions/convertJokesObject";
 import Joke from "./Joke";
 import JokeForm from "./JokeForm";
@@ -6,6 +6,7 @@ import JokesFilter from "./JokesFilter";
 
 const JokesList = () => {
     const [jokes, setJokes] = useState(Array<{}>);
+    const [filteredJokes, setFilteredJokes] = useState(Array<{}>);
     const [isJokesShown, setIsJokesShown] = useState(false);
 
     let apiUrl = "https://v2.jokeapi.dev/joke/";
@@ -29,13 +30,17 @@ const JokesList = () => {
         })();
     };
 
+    useEffect(() => {
+        setFilteredJokes(jokes);
+    }, [jokes])
+
     const handleCategoryFilter = (category: string) => {
         
-        const filteredJokes = jokes.filter((joke: Joke) => {
+        const categorizedJokes = jokes.filter((joke: Joke) => {
             return joke.category === category;
         });
 
-        setJokes([...filteredJokes]);
+        setFilteredJokes([...categorizedJokes]);
     };
 
     return (
@@ -54,7 +59,7 @@ const JokesList = () => {
 
             <ul className="jokes-container mt-4 space-y-4">
                 {isJokesShown &&
-                    jokes.map((joke: Joke) => (
+                    filteredJokes.map((joke: Joke) => (
                         <Joke key={joke.id} joke={joke}></Joke>
                     ))}
             </ul>
